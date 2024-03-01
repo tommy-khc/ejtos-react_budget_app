@@ -78,15 +78,17 @@ export const AppReducer = (state, action) => {
 
 // 1. Sets the initial state when the app loads
 const initialState = {
-    budget: 2000,
-    expenses: [
-        { id: "Marketing", name: 'Marketing', cost: 50 },
-        { id: "Finance", name: 'Finance', cost: 300 },
-        { id: "Sales", name: 'Sales', cost: 70 },
-        { id: "Human Resource", name: 'Human Resource', cost: 40 },
-        { id: "IT", name: 'IT', cost: 500 },
-    ],
-    currency: '£'
+  budget: 20000002000000,
+  expenses: [
+    { id: "AI Research", name: "AI Research", cost: 5000000 },
+    { id: "AI chips Purchasing", name: "Purchasing", cost: 7000000000000 },
+    { id: "AGI Development", name: "AGI Development", cost: 300000000 },
+    { id: "Web Development", name: "Web Development", cost: 10000 },
+    { id: "Finance", name: "Finance", cost: 300 },
+    { id: "Sales", name: "Sales", cost: 70 },
+    { id: "Human Resource", name: "Human Resource", cost: 10 },
+  ],
+  currency: "USD",
 };
 
 // 2. Creates the context this is the thing our components import and use to get the state
