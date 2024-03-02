@@ -47,27 +47,28 @@ const AllocationForm = (props) => {
             onChange={(event) => setName(event.target.value)}
           >
             <option defaultValue>Choose...</option>
-            <option value="Marketing" name="marketing">
-              {" "}
-              Marketing
+            <option value="AI Research" name="ai research">
+              AI Research
             </option>
-            <option value="Sales" name="sales">
-              Sales
+            <option value="Purchasing" name="purchasing">
+              Purchasing
+            </option>
+            <option value="AGI" name="agi">
+              AGI Development
+            </option>
+            <option value="Web" name="web">
+              Web Development
             </option>
             <option value="Finance" name="finance">
               Finance
             </option>
-            <option value="HR" name="hr">
-              HR
+            <option value="Sales" name="sales">
+              Sales
             </option>
-            <option value="IT" name="it">
-              IT
-            </option>
-            <option value="Admin" name="admin">
-              Admin
+            <option value="Human Resource" name="human resource">
+              Human Resource
             </option>
           </select>
-
           <div className="input-group-prepend" style={{ marginLeft: "2rem" }}>
             <label className="input-group-text" htmlFor="inputGroupSelect02">
               Allocation
@@ -85,12 +86,13 @@ const AllocationForm = (props) => {
               Reduce
             </option>
           </select>
-
           <div className="input-group-prepend" style={{ marginLeft: "2rem" }}>
             <label className="input-group-text" htmlFor="inputGroup-cost">
               USD
             </label>
           </div>
+          {/*Add validation to the existing budget allocation component. It
+          should accept only number value.*/}
           <input
             type="number"
             id="inputGroup-cost"
@@ -99,7 +101,6 @@ const AllocationForm = (props) => {
             step="1000"
             onChange={(event) => setCost(event.target.value)}
           ></input>
-
           <button
             className="btn btn-primary"
             onClick={submitEvent}
