@@ -92,10 +92,11 @@ const AllocationForm = (props) => {
             </label>
           </div>
           <input
-            required="required"
             type="number"
             id="inputGroup-cost"
             value={cost}
+            required="required"
+            step="1000"
             onChange={(event) => setCost(event.target.value)}
           ></input>
 
