@@ -7,6 +7,11 @@ const Budget = () => {
   const MAX_BUDGET = 50000000000000;
   const inputRef = useRef();
 
+  const { expenses } = useContext(AppContext);
+  const totalExpenses = expenses.reduce((total, item) => {
+    return (total += item.cost);
+  }, 0);
+
   useEffect(() => {
     inputRef.current.focus();
   }, []);
@@ -18,6 +23,15 @@ const Budget = () => {
       dispatch({
         type: "SET_BUDGET",
         payload: MAX_BUDGET,
+      });
+      return;
+    }
+    if (event.target.value < totalExpenses) {
+      alert("Budget must be greater or equal to total expenses.");
+      setCurrentBudget(totalExpenses);
+      dispatch({
+        type: "SET_BUDGET",
+        payload: totalExpenses,
       });
       return;
     }
