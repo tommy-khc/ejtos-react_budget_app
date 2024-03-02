@@ -10,6 +10,7 @@ import Remaining from "./components/Remaining";
 import ExpenseTotal from "./components/ExpenseTotal";
 import ExpenseList from "./components/ExpenseList";
 import AllocationForm from "./components/AllocationForm";
+import Currency from "./components/Currency";
 
 import { AppProvider } from "./context/AppContext";
 
@@ -19,6 +20,12 @@ const App = () => {
       <div className="container">
         <h1 className="mt-3">OpenAI's Budget Allocation</h1>
         <div className="row mt-3">
+          {
+            //Currency component
+            <div className="col-sm">
+              <Currency />
+            </div>
+          }
           {
             // Budget component
             <div className="col-sm">

@@ -12,13 +12,15 @@ const Budget = () => {
     return (total += item.cost);
   }, 0);
 
+  const { currency } = useContext(AppContext);
+
   useEffect(() => {
     inputRef.current.focus();
   }, []);
 
   const handleBudgetChange = (event) => {
     if (event.target.value > MAX_BUDGET) {
-      alert("Budget must be less or equal to USD 50000000000000.");
+      alert(`Budget must be less or equal to ${currency} ${MAX_BUDGET}.`);
       setCurrentBudget(MAX_BUDGET);
       dispatch({
         type: "SET_BUDGET",
@@ -44,7 +46,7 @@ const Budget = () => {
 
   return (
     <div className="alert alert-secondary">
-      <span>Budget: USD </span>
+      <span>Budget: {currency}</span>
       <input
         type="number"
         step="1000"
