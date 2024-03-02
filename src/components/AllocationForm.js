@@ -50,14 +50,14 @@ const AllocationForm = (props) => {
             <option value="AI Research" name="ai research">
               AI Research
             </option>
-            <option value="Purchasing" name="purchasing">
-              Purchasing
+            <option value="AI Chips Purchasing" name="ai chips purchasing">
+              AI Chips Purchasing
             </option>
             <option value="AGI" name="agi">
-              AGI Development
+              AGI
             </option>
             <option value="Web" name="web">
-              Web Development
+              Web
             </option>
             <option value="Finance" name="finance">
               Finance

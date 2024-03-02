@@ -1,92 +1,97 @@
-import React, { createContext, useReducer } from 'react';
+import React, { createContext, useReducer } from "react";
 
 // 5. The reducer - this is used to update the state, based on the action
 export const AppReducer = (state, action) => {
-    let budget = 0;
-    switch (action.type) {
-        case 'ADD_EXPENSE':
-            let total_budget = 0;
-            total_budget = state.expenses.reduce(
-                (previousExp, currentExp) => {
-                    return previousExp + currentExp.cost
-                },0
-            );
-            total_budget = total_budget + action.payload.cost;
-            action.type = "DONE";
-            if(total_budget <= state.budget) {
-                total_budget = 0;
-                state.expenses.map((currentExp)=> {
-                    if(currentExp.name === action.payload.name) {
-                        currentExp.cost = action.payload.cost + currentExp.cost;
-                    }
-                    return currentExp
-                });
-                return {
-                    ...state,
-                };
-            } else {
-                alert("Cannot increase the allocation! Out of funds");
-                return {
-                    ...state
-                }
-            }
-            case 'RED_EXPENSE':
-                const red_expenses = state.expenses.map((currentExp)=> {
-                    if (currentExp.name === action.payload.name && currentExp.cost - action.payload.cost >= 0) {
-                        currentExp.cost =  currentExp.cost - action.payload.cost;
-                        budget = state.budget + action.payload.cost
-                    }
-                    return currentExp
-                })
-                action.type = "DONE";
-                return {
-                    ...state,
-                    expenses: [...red_expenses],
-                };
-            case 'DELETE_EXPENSE':
-            action.type = "DONE";
-            state.expenses.map((currentExp)=> {
-                if (currentExp.name === action.payload) {
-                    budget = state.budget + currentExp.cost
-                    currentExp.cost =  0;
-                }
-                return currentExp
-            })
-            action.type = "DONE";
-            return {
-                ...state,
-                budget
-            };
-        case 'SET_BUDGET':
-            action.type = "DONE";
-            state.budget = action.payload;
+  let budget = 0;
+  switch (action.type) {
+    case "ADD_EXPENSE":
+      let total_budget = 0;
+      total_budget = state.expenses.reduce((previousExp, currentExp) => {
+        return previousExp + currentExp.cost;
+      }, 0);
+      total_budget = total_budget + action.payload.cost;
+      action.type = "DONE";
+      if (total_budget <= state.budget) {
+        total_budget = 0;
+        state.expenses.map((currentExp) => {
+          if (currentExp.name === action.payload.name) {
+            currentExp.cost = action.payload.cost + currentExp.cost;
+          }
+          return currentExp;
+        });
+        return {
+          ...state,
+        };
+      } else {
+        alert("Cannot increase the allocation! Out of funds");
+        return {
+          ...state,
+        };
+      }
+    case "RED_EXPENSE":
+      const red_expenses = state.expenses.map((currentExp) => {
+        if (
+          currentExp.name === action.payload.name &&
+          currentExp.cost - action.payload.cost >= 0
+        ) {
+          currentExp.cost = currentExp.cost - action.payload.cost;
+          budget = state.budget + action.payload.cost;
+        }
+        return currentExp;
+      });
+      action.type = "DONE";
+      return {
+        ...state,
+        expenses: [...red_expenses],
+      };
+    case "DELETE_EXPENSE":
+      action.type = "DONE";
+      state.expenses.map((currentExp) => {
+        if (currentExp.name === action.payload) {
+          budget = state.budget + currentExp.cost;
+          currentExp.cost = 0;
+        }
+        return currentExp;
+      });
+      action.type = "DONE";
+      return {
+        ...state,
+        budget,
+      };
+    case "SET_BUDGET":
+      action.type = "DONE";
+      state.budget = action.payload;
 
-            return {
-                ...state,
-            };
-        case 'CHG_CURRENCY':
-            action.type = "DONE";
-            state.currency = action.payload;
-            return {
-                ...state
-            }
+      return {
+        ...state,
+      };
+    case "CHG_CURRENCY":
+      action.type = "DONE";
+      state.currency = action.payload;
+      return {
+        ...state,
+      };
 
-        default:
-            return state;
-    }
+    default:
+      return state;
+  }
 };
 
 // 1. Sets the initial state when the app loads
 const initialState = {
   budget: 20000002000000,
   expenses: [
-    { id: "AI Research", name: "ai research", cost: 5000000 },
-    { id: "AI chips Purchasing", name: "purchasing", cost: 7000000000000 },
-    { id: "AGI", name: "agi", cost: 300000000 },
-    { id: "Web", name: "web", cost: 10000 },
-    { id: "Finance", name: "finance", cost: 300 },
-    { id: "Sales", name: "sales", cost: 70 },
-    { id: "Human Resource", name: "human resource", cost: 10 },
+    { id: "ai research", name: "AI Research", cost: 5000000 },
+    {
+      id: "ai chips purchasing",
+      name: "AI Chips Purchasing",
+      cost: 7000000000000,
+    },
+    { id: "agi", name: "AGI", cost: 300000000 },
+    { id: "web", name: "Web", cost: 10000 },
+    { id: "finance", name: "Finance", cost: 300 },
+    { id: "sales", name: "Sales", cost: 70 },
+    { id: "human resource", name: "Human Resource", cost: 10 },
   ],
   currency: "USD",
 };
@@ -97,28 +102,28 @@ export const AppContext = createContext();
 // 3. Provider component - wraps the components we want to give access to the state
 // Accepts the children, which are the nested(wrapped) components
 export const AppProvider = (props) => {
-    // 4. Sets up the app state. takes a reducer, and an initial state
-    const [state, dispatch] = useReducer(AppReducer, initialState);
-    let remaining = 0;
+  // 4. Sets up the app state. takes a reducer, and an initial state
+  const [state, dispatch] = useReducer(AppReducer, initialState);
+  let remaining = 0;
 
-    if (state.expenses) {
-            const totalExpenses = state.expenses.reduce((total, item) => {
-            return (total = total + item.cost);
-        }, 0);
-        remaining = state.budget - totalExpenses;
-    }
+  if (state.expenses) {
+    const totalExpenses = state.expenses.reduce((total, item) => {
+      return (total = total + item.cost);
+    }, 0);
+    remaining = state.budget - totalExpenses;
+  }
 
-    return (
-        <AppContext.Provider
-            value={{
-                expenses: state.expenses,
-                budget: state.budget,
-                remaining: remaining,
-                dispatch,
-                currency: state.currency
-            }}
-        >
-            {props.children}
-        </AppContext.Provider>
-    );
+  return (
+    <AppContext.Provider
+      value={{
+        expenses: state.expenses,
+        budget: state.budget,
+        remaining: remaining,
+        dispatch,
+        currency: state.currency,
+      }}
+    >
+      {props.children}
+    </AppContext.Provider>
+  );
 };
